@@ -37,14 +37,14 @@
 
 
 
-			game.style.visibility = "hidden";
+			game.style.display = "none";
 		}
 
 
 		function initialise_game(){
-			var pre_game = document.getElementById("pre-game-form");
+			var pre_game = document.getElementById("pre-game");
 
-			pre_game.style.visibility = "hidden";
+			pre_game.style.display = "none";
 
 		}
 
@@ -52,8 +52,25 @@
 
 </head>
 <body>
+<div id="pre-game">
 
-	<div class="input_form" id="pre-game-form">
+<div id="front-page">
+	<h>Get to know your ANDis</h>
+	<button onclick="hide_and_show(this)" hide_page = 'front-page' show_page = 'rules-page' label= 'Start'>Start</button>
+</div>
+<div hidden id = 'rules-page'>
+	<h>Rules</h>
+	<p>
+			Hello!
+			Welcome to Title Swap!
+			To set up your game, choose some emojis that represent your AND Title. Don’t worry, you can use as many as you need.
+			Then add your AND Title, and hit ‘Ready’ to generate the game for your fellow Andis.
+			(When they’ve clicked ready, share link should appear)
+			Use this share link to send your unique game to fellow Andis.
+	</p>
+	<button onclick="hide_and_show(this)" hide_page = 'rules-page' show_page="pre-game-form">Got it</button>
+</div>
+	<div hidden class="input_form" id="pre-game-form">
 		<form method="GET" action="">
 			<label for="and_title">AND title</label>
 			<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie">
@@ -64,10 +81,36 @@
 			<button type="submit">Submit</button>
 		</form>
 	</div>
-
-	<div class="game" id="game">
+	<script type="text/javascript">
+		function hide_and_show(element){
+			document.getElementById(element.getAttribute('hide_page')).hidden = true
+			document.getElementById(element.getAttribute('show_page')).hidden = false
+		}
+	</script>
+</div>
+<div id = 'game'>
+	<div id="front-page-game">
+		<h>Get to know your ANDis</h>
+		<button onclick="hide_and_show(this)" hide_page = 'front-page-game' show_page = 'rules-page-game' label= 'Start'>Start</button>
 	</div>
-
+	<div hidden id = 'rules-page-game'>
+		<h>Rules</h>
+		<p>
+			Welcome to Title swap!
+The game to get to know your team in a fun way!
+Here the rules of the game:
+<li>
+<ol>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</ol>
+<ol>Then take your best guess on what you think it means and enter it in the field below!</ol>
+<ol>In case you get stuck, hit the "Help me!" button and we will help you out!</ol></li>
+It is as easy as that!
+Best of luck and have fun!
+			</p>
+		<button onclick="hide_and_show(this)" hide_page = 'rules-page-game' show_page="game-form">Got it</button>
+	</div>
+	<div class="game" id="game-form">
+	</div>
+</div>
 	<script type="text/javascript">
 		initialise();
 	</script>
