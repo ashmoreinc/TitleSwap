@@ -1,118 +1,196 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="Resource/main.css">
+
 	<title>AND Guesser</title>
 
 	<script type="text/javascript">
-		function findGetParameter(parameterName) {
-		    var result = null,
-		        tmp = [];
-		    location.search
-		        .substr(1)
-		        .split("&")
-		        .forEach(function (item) {
-		          tmp = item.split("=");
-		          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-		        });
-		    return result;
-		}
+
+		let users_guess = [];
+		let actual_ans = [];
 
 
-
-		function initialise(){
-			var title = findGetParameter("and_title");
-			var hint = findGetParameter("emoji_hint");
-
-			if(title === null || hint === null) {
-				initialise_form()
-			} else {
-				initialise_game();
+			function findGetParameter(parameterName) {
+				var result = null,
+					tmp = [];
+				location.search
+					.substr(1)
+					.split("&")
+					.forEach(function (item) {
+						tmp = item.split("=");
+						if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+					});
+				return result;
 			}
-		}
-
-		function initialise_form(){
-			var game = document.getElementById("game");
 
 
+			function initialise() {
+				var title = findGetParameter("and_title");
+				var hint = findGetParameter("emoji_hint");
 
-			game.style.display = "none";
-		}
+				if (title === null || hint === null) {
+					initialise_form()
+				} else {
+					initialise_game();
+				}
+			}
+
+			function initialise_form() {
+				var game = document.getElementById("game");
 
 
-		function initialise_game(){
-			var pre_game = document.getElementById("pre-game");
+				game.style.display = "none";
 
-			pre_game.style.display = "none";
+			}
 
-		}
 
-	</script>
+			function initialise_game() {
+
+				var pre_game = document.getElementById("pre-game");
+
+				pre_game.style.display = "none";
+
+				// hint section
+				var hint_sect = document.getElementById("game_hint_section");
+				var hint = findGetParameter("emoji_hint");
+
+
+				hint_sect.innerHTML = "<p>" + hint + "</p>";
+
+
+				// showing the user input
+				var text_sect = document.getElementById("game_text_sect");
+				var title = findGetParameter("and_title");
+				for (var i = 0; i < title.length; i++) {
+					var new_tag = document.createElement("div");
+					new_tag.className = "letter_box";
+					new_tag.id = "letter" + i;
+					text_sect.append(new_tag);
+
+					actual_ans.push(title.charAt(i));
+					users_guess.push(null);
+				}
+
+				document.addEventListener("keypress", function keyPress(event) {
+					if (actual_ans.includes(event.key)) {
+						for (var i = 0; i < actual_ans.length; i++) {
+							if (actual_ans[i] == event.key) {
+								users_guess[i] = event.key;
+							}
+						}
+
+						update_text_sect();
+					} else {
+						// Tell user it is incorrect
+					}
+				});
+			}
+
+
+			function update_text_sect() {
+				for (var i = 0; i < users_guess.length; i++) {
+					if (users_guess[i] === null) {
+						document.getElementById("letter" + i).innerHTML = "";
+					} else {
+						document.getElementById("letter" + i).innerHTML = users_guess[i];
+					}
+				}
+
+
+				if (!users_guess.includes(null)) {
+					game_won();
+				}
+			}
+
+			function game_won() {
+
+			}
+
+		</script>
 
 </head>
+
 <body>
-<div id="pre-game">
 
-<div id="front-page">
-	<h>Get to know your ANDis</h>
-	<button onclick="hide_and_show(this)" hide_page = 'front-page' show_page = 'rules-page' label= 'Start'>Start</button>
-</div>
-<div hidden id = 'rules-page'>
-	<h>Rules</h>
-	<p>
-			Hello!
-			Welcome to Title Swap!
-			To set up your game, choose some emojis that represent your AND Title. Don’t worry, you can use as many as you need.
-			Then add your AND Title, and hit ‘Ready’ to generate the game for your fellow Andis.
-			(When they’ve clicked ready, share link should appear)
-			Use this share link to send your unique game to fellow Andis.
-	</p>
-	<button onclick="hide_and_show(this)" hide_page = 'rules-page' show_page="pre-game-form">Got it</button>
-</div>
-	<div hidden class="input_form" id="pre-game-form">
-		<form method="GET" action="">
-			<label for="and_title">AND title</label>
-			<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie">
+	<div id="pre-game">
 
-			<label for="emoji_hint">Emoji Hint</label>
-			<input type="text" name="emoji_hint" id="emoji_hint" placeholder="e.g. 🍕🍟🍔">
-
-			<button type="submit">Submit</button>
-		</form>
-	</div>
-	<script type="text/javascript">
-		function hide_and_show(element){
-			document.getElementById(element.getAttribute('hide_page')).hidden = true
-			document.getElementById(element.getAttribute('show_page')).hidden = false
-		}
-	</script>
-</div>
-<div id = 'game'>
-	<div id="front-page-game">
-		<h>Get to know your ANDis</h>
-		<button onclick="hide_and_show(this)" hide_page = 'front-page-game' show_page = 'rules-page-game' label= 'Start'>Start</button>
-	</div>
-	<div hidden id = 'rules-page-game'>
-		<h>Rules</h>
-		<p>
-			Welcome to Title swap!
-The game to get to know your team in a fun way!
-Here the rules of the game:
-<li>
-<ol>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</ol>
-<ol>Then take your best guess on what you think it means and enter it in the field below!</ol>
-<ol>In case you get stuck, hit the "Help me!" button and we will help you out!</ol></li>
-It is as easy as that!
-Best of luck and have fun!
+		<div id="front-page">
+			<h>Get to know your ANDis</h>
+			<button onclick="hide_and_show(this)" hide_page='front-page' show_page='rules-page'
+				label='Start'>Start</button>
+		</div>
+		<div hidden id='rules-page'>
+			<h>Rules</h>
+			<p>
+				Hello!
+				Welcome to Title Swap!
+				To set up your game, choose some emojis that represent your AND Title. Don’t worry, you can use as many
+				as you need.
+				Then add your AND Title, and hit ‘Ready’ to generate the game for your fellow Andis.
+				(When they’ve clicked ready, share link should appear)
+				Use this share link to send your unique game to fellow Andis.
 			</p>
-		<button onclick="hide_and_show(this)" hide_page = 'rules-page-game' show_page="game-form">Got it</button>
+			<button onclick="hide_and_show(this)" hide_page='rules-page' show_page="pre-game-form">Got it</button>
+		</div>
+		<div hidden class="input_form" id="pre-game-form">
+			<form method="GET" action="">
+				<label for="and_title">AND title</label>
+				<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie">
+
+				<label for="emoji_hint">Emoji Hint</label>
+				<input type="text" name="emoji_hint" id="emoji_hint" placeholder="e.g. 🍕🍟🍔">
+
+
+				<button type="submit">Submit</button>
+			</form>
+		</div>
+
+		<script type="text/javascript">
+			function hide_and_show(element) {
+				document.getElementById(element.getAttribute('hide_page')).hidden = true
+				document.getElementById(element.getAttribute('show_page')).hidden = false
+			}
+		</script>
 	</div>
-	<div class="game" id="game-form">
+	<div id='game'>
+		<div id="front-page-game">
+			<h>Get to know your ANDis</h>
+			<button onclick="hide_and_show(this)" hide_page='front-page-game' show_page='rules-page-game'
+				label='Start'>Start</button>
+		</div>
+		<div hidden id='rules-page-game'>
+			<h>Rules</h>
+			<p>
+				Welcome to Title swap!
+				The game to get to know your team in a fun way!
+				Here the rules of the game:
+				<li>
+					<ol>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</ol>
+					<ol>Then take your best guess on what you think it means and enter it in the field below!</ol>
+					<ol>In case you get stuck, hit the "Help me!" button and we will help you out!</ol>
+				</li>
+				It is as easy as that!
+				Best of luck and have fun!
+			</p>
+			<button onclick="hide_and_show(this)" hide_page='rules-page-game' show_page="game-form">Got it</button>
+		</div>
+		<div class="game-form" id="game-form">
+			<div class="hint_section" id="game_hint_section">
+
+			</div>
+			<div class="text_section" id="game_text_sect">
+			</div>
+		</div>
 	</div>
-</div>
+
 	<script type="text/javascript">
 		initialise();
 	</script>
 </body>
+
 </html>
