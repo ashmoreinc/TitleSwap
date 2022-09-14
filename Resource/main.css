@@ -1,9 +1,11 @@
 body {
 	padding: 0px;
+
 	font-family: "Roboto", serif;
 
 	display: flex;
 	justify-content: space-around;
+
 }
 
 
@@ -46,13 +48,24 @@ body {
 	vertical-align: middle;
 }
 
-.letter_box.blank_space {
+.letter_box.blank_space,
+.space_box{
 	background-color: #fff;
 	border:  0px solid;
+
+	padding: 5px;
+	border :'none';
+
+	border-radius: 8px;
+
+	margin:  5px;
+	width:  2em;
+	height: 2em;
 }
 
 .text_section {
 	display: flex;
+
 	justify-content: center;
 
 
