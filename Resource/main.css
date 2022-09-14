@@ -1,7 +1,21 @@
 body {
 	padding: 0px;
+	font-family: "Roboto", serif;
+
+	display: flex;
+	justify-content: space-around;
 }
 
+
+.hint_section {
+	display: flex;
+
+	justify-content: space-around;
+}
+
+.hint_section p{
+	font-size: 3em;
+}
 
 .letter_box {
 	padding: 5px;
@@ -10,11 +24,28 @@ body {
 	border-radius: 8px;
 
 	margin:  5px;
-	width:  2em;
-	height: 2em;
+	width:  1em;
+	height: 1em;
+
+
+	font-weight: bold;
+	color: #fff;
+	background: #d82036;
+
+	font-family: "Roboto",serif;
+
+	font-size: 2em;
+
+
+	text-align: center;
+	vertical-align: middle;
 }
 
 
 .text_section {
 	display: flex;
+	justify-content: center;
+
+
+	margin-bottom: 25px;
 }
