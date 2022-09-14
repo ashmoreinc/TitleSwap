@@ -83,9 +83,18 @@
 				new_tag.id = "letter" + i;
 				text_sect.append(new_tag);
 
+				if(title.charAt(i) == " ") {
+					new_tag.className += " blank_space";
+				}
+
 				actual_ans.push(title.charAt(i).toLowerCase());
-				users_guess.push(null);
-			}
+
+
+				if(title.charAt(i) == " ") {
+					users_guess.push(" ");
+				} else 
+					users_guess.push(null);
+				}
 
 			document.addEventListener("keypress", function keyPress(event) {
 				if (actual_ans.includes(event.key)) {
@@ -139,13 +148,13 @@
 		<div hidden id='rules-page'>
 
 			<p>
-				Hello!
-				Welcome to Title Swap!
+				Hello!<br>
+				Welcome to Title Swap!<br>
 				To set up your game, choose some emojis that represent your AND Title. Don’t worry, you can use as many
-				as you need.
-				Then add your AND Title, and hit ‘Ready’ to generate the game for your fellow Andis.
+				as you need.<br>
+				Then add your AND Title, and hit ‘Ready’ to generate the game for your fellow Andis.<br><br>
 
-				Use this share link to send your unique game to fellow Andis.
+				Use this share link to send your unique game to fellow Andis.<br>
 			</p>
 			<div class="input_form" id="pre-game-form">
 				<div>
