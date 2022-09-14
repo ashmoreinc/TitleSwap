@@ -40,7 +40,7 @@
 
 
 		function initialise() {
-			var title = findGetParameter("and_title").hexDecode();
+			var title = findGetParameter("and_title");
 			var hint = findGetParameter("emoji_hint");
 
 			if (title === null || hint === null) {
@@ -77,6 +77,7 @@
 			var text_sect = document.getElementById("game_text_sect");
 			var title = findGetParameter("and_title").hexDecode();
 			for (var i = 0; i < title.length; i++) {
+				
 				var new_tag = document.createElement("div");
 				new_tag.className = "letter_box";
 				new_tag.id = "letter" + i;
@@ -196,11 +197,10 @@
 				Welcome to Title swap!
 				The game to get to know your team in a fun way!
 				Here the rules of the game:
-				<li>
-					<ol>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</ol>
-					<ol>Then take your best guess on what you think it means and enter it in the field below!</ol>
-					<ol>In case you get stuck, hit the "Help me!" button and we will help you out!</ol>
-				</li>
+				<ol>
+					<li>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</li>
+					<li>Then take your best guess on what you think it means and enter it in the field below!</li>
+				</ol>
 				It is as easy as that!
 				Best of luck and have fun!
 			</p>
