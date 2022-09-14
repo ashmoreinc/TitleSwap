@@ -77,15 +77,15 @@
 			var text_sect = document.getElementById("game_text_sect");
 			var title = findGetParameter("and_title").hexDecode();
 			for (var i = 0; i < title.length; i++) {
-				if (title.charAt(i) == ' '){
+				if (title.charAt(i) == ' ') {
 					var new_tag = document.createElement("div");
 					new_tag.className = "letter_box";
-				new_tag.id = "letter" + i;
-				new_tag.style.border = 'none'
+					new_tag.id = "letter" + i;
+					new_tag.style.border = 'none'
 					actual_ans.push(title.charAt(i));
 					users_guess.push(title.charAt(i));
-				text_sect.append(new_tag)
-				continue;
+					text_sect.append(new_tag)
+					continue;
 				}
 				var new_tag = document.createElement("div");
 				new_tag.className = "letter_box";
@@ -99,7 +99,7 @@
 			document.addEventListener("keypress", function keyPress(event) {
 				if (actual_ans.includes(event.key)) {
 					for (var i = 0; i < actual_ans.length; i++) {
-						if (title.charAt(i) == ' '){continue}
+						if (title.charAt(i) == ' ') { continue }
 						if (actual_ans[i] == event.key) {
 							users_guess[i] = event.key;
 						}
@@ -115,7 +115,7 @@
 
 		function update_text_sect() {
 			for (var i = 0; i < users_guess.length; i++) {
-				
+
 				if (users_guess[i] === null) {
 					document.getElementById("letter" + i).innerHTML = "";
 				} else {
@@ -196,26 +196,32 @@
 					emoji_hint: document.getElementById('emoji_hint').value
 				}
 				console.log(new URLSearchParams(data))
-				document.getElementById('link').innerHTML = window.location +'?'+ (new URLSearchParams(data));
+				document.getElementById('link').innerHTML = window.location + '?' + (new URLSearchParams(data));
+				var text = window.location + '?' + (new URLSearchParams(data));
+				navigator.clipboard.writeText(text).then(function () {
+					console.log('Async: Copying to clipboard was successful!');
+				}, function (err) {
+					console.error('Async: Could not copy text: ', err);
+				});
 			}
 		</script>
 	</div>
 	<div id='game'>
 
-		<div  id='rules-page-game'>
-		
+		<div id='rules-page-game'>
+
 			<p>
 				Welcome to Title swap!
 				The game to get to know your team in a fun way!
 				Here the rules of the game:
-				<ol>
-					<li>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</li>
-					<li>Then take your best guess on what you think it means and enter it in the field below!</li>
-				</ol>
-				It is as easy as that!
-				Best of luck and have fun!
+			<ol>
+				<li>Look at the emojis your fellow ANDi chose to describe her\his AND Title.</li>
+				<li>Then take your best guess on what you think it means and enter it in the field below!</li>
+			</ol>
+			It is as easy as that!
+			Best of luck and have fun!
 			</p>
-			
+
 		</div>
 		<div class="game-form" id="game-form">
 			<div class="hint_section" id="game_hint_section">
@@ -232,9 +238,9 @@
 
 	<script type="text/javascript">
 		initialise();
-		function redirect_to_main_page(){
-console.log(window.location.host)
-			window.location.href = 'http://'+(window.location.host )
+		function redirect_to_main_page() {
+			console.log(window.location.host)
+			window.location.href = 'http://' + (window.location.host)
 		}
 	</script>
 </body>
