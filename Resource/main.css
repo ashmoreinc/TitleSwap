@@ -1,7 +1,6 @@
 body {
 	padding: 0px;
-<<<<<<< HEAD
-=======
+
 }
 
 
@@ -17,8 +16,17 @@ body {
 	height: 2em;
 }
 
+.space_box{
+	padding: 5px;
+	border :'none';
 
+	border-radius: 8px;
+
+	margin:  5px;
+	width:  2em;
+	height: 2em;
+}
 .text_section {
 	display: flex;
->>>>>>> game
+
 }
