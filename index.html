@@ -3,9 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="Resource/main.css">
+
 	<title>AND Guesser</title>
 
 	<script type="text/javascript">
+
+		let users_guess = [];
+		let actual_ans = [];
+
 		function findGetParameter(parameterName) {
 		    var result = null,
 		        tmp = [];
@@ -18,8 +25,6 @@
 		        });
 		    return result;
 		}
-
-
 
 		function initialise(){
 			var title = findGetParameter("and_title");
@@ -46,8 +51,61 @@
 
 			pre_game.style.visibility = "hidden";
 
+			// hint section
+			var hint_sect = document.getElementById("game_hint_section");
+			var hint = findGetParameter("emoji_hint");
+
+
+			hint_sect.innerHTML = "<p>" + hint + "</p>";
+
+
+			// showing the user input
+			var text_sect = document.getElementById("game_text_sect"); 
+			var title = findGetParameter("and_title");
+			for(var i=0; i<title.length; i++){
+				var new_tag = document.createElement("div");
+				new_tag.className="letter_box";
+				new_tag.id="letter" + i;
+				text_sect.append(new_tag);
+
+				actual_ans.push(title.charAt(i));
+				users_guess.push(null);
+			}
+
+			document.addEventListener("keypress", function keyPress(event) {
+				if(actual_ans.includes(event.key)) {
+					for(var i=0; i<actual_ans.length; i++){
+						if(actual_ans[i] == event.key) {
+							users_guess[i] = event.key;
+						}
+					}
+
+					update_text_sect();
+				} else {
+					// Tell user it is incorrect
+				}
+			});
 		}
 
+
+		function update_text_sect (){
+			for(var i=0; i<users_guess.length;i++){
+				if(users_guess[i] === null) {
+					document.getElementById("letter" + i).innerHTML = "";
+				} else {
+					document.getElementById("letter" + i).innerHTML = users_guess[i];
+				}
+			}
+
+
+			if(!users_guess.includes(null)) {
+				game_won();
+			}
+		}
+
+		function game_won(){
+			
+		}
 	</script>
 
 </head>
@@ -56,16 +114,21 @@
 	<div class="input_form" id="pre-game-form">
 		<form method="GET" action="">
 			<label for="and_title">AND title</label>
-			<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie">
+			<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie" required>
 
 			<label for="emoji_hint">Emoji Hint</label>
-			<input type="text" name="emoji_hint" id="emoji_hint" placeholder="e.g. 🍕🍟🍔">
+			<input type="text" name="emoji_hint" id="emoji_hint" placeholder="e.g. 🍕🍟🍔" required>
 
 			<button type="submit">Submit</button>
 		</form>
 	</div>
 
 	<div class="game" id="game">
+		<div class="hint_section" id="game_hint_section">
+
+		</div>
+		<div class="text_section" id="game_text_sect">
+		</div>
 	</div>
 
 	<script type="text/javascript">

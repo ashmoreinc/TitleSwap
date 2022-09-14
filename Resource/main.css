@@ -1,3 +1,21 @@
 body {
 	padding: 0px;
 }
+
+
+
+.letter_box {
+	padding: 5px;
+	border: 1px solid #777;
+
+	border-radius: 8px;
+
+	margin:  5px;
+	width:  2em;
+	height: 2em;
+}
+
+
+.text_section {
+	display: flex;
+}
