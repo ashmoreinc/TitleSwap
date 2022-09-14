@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AND Guesser</title>
+
+	<script type="text/javascript">
+		function findGetParameter(parameterName) {
+		    var result = null,
+		        tmp = [];
+		    location.search
+		        .substr(1)
+		        .split("&")
+		        .forEach(function (item) {
+		          tmp = item.split("=");
+		          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+		        });
+		    return result;
+		}
+
+
+
+		function initialise(){
+			var title = findGetParameter("and_title");
+			var hint = findGetParameter("emoji_hint");
+
+			if(title === null || hint === null) {
+				initialise_form()
+			} else {
+				initialise_game();
+			}
+		}
+
+		function initialise_form(){
+			var game = document.getElementById("game");
+
+
+
+			game.style.visibility = "hidden";
+		}
+
+
+		function initialise_game(){
+			var pre_game = document.getElementById("pre-game-form");
+
+			pre_game.style.visibility = "hidden";
+
+		}
+
+	</script>
+
+</head>
+<body>
+
+	<div class="input_form" id="pre-game-form">
+		<form method="GET" action="">
+			<label for="and_title">AND title</label>
+			<input type="text" name="and_title" id="and_title" placeholder="e.g. AND Foodie">
+
+			<label for="emoji_hint">Emoji Hint</label>
+			<input type="text" name="emoji_hint" id="emoji_hint" placeholder="e.g. 🍕🍟🍔">
+
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+
+	<div class="game" id="game">
+	</div>
+
+	<script type="text/javascript">
+		initialise();
+	</script>
+</body>
+</html>
